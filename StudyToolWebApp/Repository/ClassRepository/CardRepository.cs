@@ -12,6 +12,17 @@ namespace StudyToolWebApp.Repository.ClassRepository
             _context = context;
         }
 
+        public bool CardExists(int id)
+        {
+            return _context.cards.Any(c => c.Id == id);
+            
+        }
+
+        public Card GetCard(int id)
+        {
+            return _context.cards.Where(c => c.Id == id).FirstOrDefault();
+        }
+
         public ICollection<Card> GetCards()
         {
             return _context.cards.OrderBy(c => c.Id).ToList();
