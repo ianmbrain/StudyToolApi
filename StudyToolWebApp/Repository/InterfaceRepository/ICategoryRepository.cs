@@ -1,6 +1,12 @@
-﻿namespace StudyToolWebApp.Repository.InterfaceRepository
+﻿using StudyToolWebApp.Models;
+
+namespace StudyToolWebApp.Repository.InterfaceRepository
 {
-    public class ICategoryRepository
+    public interface ICategoryRepository
     {
+        ICollection<Category> GetCategories();
+        Category GetCategory(int id);
+        ICollection<Card> GetCardsByCategory(int CategoryId);
+        bool CategoryExists(int id);
     }
 }
