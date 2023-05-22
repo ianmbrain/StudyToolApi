@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.Identity.Web;
 using StudyToolWebApp.Data;
+using StudyToolWebApp.Repository.ClassRepository;
+using StudyToolWebApp.Repository.InterfaceRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
     .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));*/
 
 builder.Services.AddControllers();
+builder.Services.AddScoped<ICardRepository, CardRepository>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
