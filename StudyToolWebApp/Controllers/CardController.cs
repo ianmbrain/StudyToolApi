@@ -11,9 +11,12 @@ namespace StudyToolWebApp.Controllers
     public class CardController : Controller
     {
         private readonly ICardRepository _cardRepository;
-        public CardController(ICardRepository cardRepository)
+        private readonly IDeckRepository _deckRepository;
+
+        public CardController(ICardRepository cardRepository, IDeckRepository deckRepository)
         {
             _cardRepository = cardRepository;
+            _deckRepository = deckRepository;
         }
 
         [HttpGet]
@@ -55,7 +58,7 @@ namespace StudyToolWebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateCard([FromBody] CardDto cardDto)
+        public IActionResult CreateCard([FromQuery] int deckId, [FromBody] CardDto cardDto)
         {
             if (cardDto == null)
             {
@@ -81,7 +84,7 @@ namespace StudyToolWebApp.Controllers
                 Term = cardDto.Term,
                 Description = cardDto.Description,
                 Important = cardDto.Important,
-                Deck = cardDto.DeckId
+                Deck = _deckRepository.GetDeck(deckId)
             };
 
             if (!_cardRepository.CreateCard(card))
