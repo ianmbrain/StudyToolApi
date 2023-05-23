@@ -50,5 +50,12 @@ namespace StudyToolWebApp.Repository.ClassRepository
 
             return saved > 0 ? true : false;
         }
+
+        public bool UpdateCard(Card card)
+        {
+            _context.Update(card);
+
+            return Save();
+        }
     }
 }

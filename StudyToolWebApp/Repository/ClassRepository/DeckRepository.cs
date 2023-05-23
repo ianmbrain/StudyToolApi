@@ -51,5 +51,12 @@ namespace StudyToolWebApp.Repository.ClassRepository
 
             return saved > 0 ? true : false;
         }
+
+        public bool UpdateDeck(Deck deck)
+        {
+            _context.Update(deck);
+
+            return Save();
+        }
     }
 }

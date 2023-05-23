@@ -11,6 +11,7 @@ namespace StudyToolWebApp.Repository.InterfaceRepository
         ICollection<Card> GetCardsByDeck(int deckId);
         bool DecksExists(int id);
         bool CreateDeck(Deck deck);
+        bool UpdateDeck(Deck deck);
         bool Save();
     }
 }

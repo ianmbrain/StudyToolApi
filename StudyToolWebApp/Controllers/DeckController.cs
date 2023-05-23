@@ -159,5 +159,43 @@ namespace StudyToolWebApp.Controllers
 
             return Ok("Created");
         }
+
+        [HttpPut("{deckId}")]
+        public IActionResult UpdateCategory(int deckId, [FromBody] DeckDto deckDto)
+        {
+            if (deckDto == null)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if(deckId != deckDto.Id)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if(!_deckRepository.DecksExists(deckId))
+            {
+                return NotFound();
+            }
+
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var deck = new Deck
+            {
+                Id = deckDto.Id,
+                Title = deckDto.Title,
+                Description = deckDto.Description
+            };
+
+            if(!_deckRepository.UpdateDeck(deck))
+            {
+                ModelState.AddModelError("", "Unable to update deck");
+            }
+
+            return NoContent();
+        }
     }
 }
