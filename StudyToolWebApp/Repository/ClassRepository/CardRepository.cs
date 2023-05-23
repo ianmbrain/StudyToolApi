@@ -34,6 +34,13 @@ namespace StudyToolWebApp.Repository.ClassRepository
             return Save();
         }
 
+        public bool DeleteCard(Card card)
+        {
+            _context.Remove(card);
+
+            return Save();
+        }
+
         public Card GetCard(int id)
         {
             return _context.cards.Where(c => c.Id == id).FirstOrDefault();

@@ -9,6 +9,7 @@ namespace StudyToolWebApp.Repository.InterfaceRepository
         bool CardExists(int id);
         bool CreateCard(int categoryId, Card card);
         bool UpdateCard(Card card);
+        bool DeleteCard(Card card);
         bool Save();
     }
 }

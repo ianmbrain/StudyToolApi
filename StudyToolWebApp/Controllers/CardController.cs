@@ -134,5 +134,18 @@ namespace StudyToolWebApp.Controllers
 
             return NoContent();
         }
+
+        [HttpDelete("{cardId}")]
+        public IActionResult DeleteCard(int cardId)
+        {
+            if(!_cardRepository.CardExists(cardId))
+            {
+                return NotFound();
+            }
+
+            var card = _cardRepository.GetCard(cardId);
+
+            _cardRepository.DeleteCard(card);
+        }
     } 
 }

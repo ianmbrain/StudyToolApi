@@ -8,7 +8,7 @@
         public bool Important { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
-        public DateTime LastUpdatedAt { get; set; }
+        public DateTime LastUpdatedAt { get; set; } = DateTime.Now;
         public Deck Deck { get; set;}
         public ICollection<CardCategory> Categories { get; set; }
     }
