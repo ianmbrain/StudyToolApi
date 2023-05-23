@@ -18,8 +18,17 @@ namespace StudyToolWebApp.Repository.ClassRepository
             
         }
 
-        public bool CreateCard(Card card)
+        public bool CreateCard(int categoryId, Card card)
         {
+            var category = _context.Categories.Where(c => c.Id == categoryId).FirstOrDefault();
+
+            var cardCategory = new CardCategory()
+            {
+                Card = card,
+                Category = category
+            };
+
+            _context.Add(cardCategory);
             _context.Add(card);
 
             return Save();

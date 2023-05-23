@@ -58,7 +58,7 @@ namespace StudyToolWebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateCard([FromQuery] int deckId, [FromBody] CardDto cardDto)
+        public IActionResult CreateCard([FromQuery] int deckId, [FromQuery] int categoryId, [FromBody] CardDto cardDto)
         {
             if (cardDto == null)
             {
@@ -87,7 +87,7 @@ namespace StudyToolWebApp.Controllers
                 Deck = _deckRepository.GetDeck(deckId)
             };
 
-            if (!_cardRepository.CreateCard(card))
+            if (!_cardRepository.CreateCard(categoryId, card))
             {
                 ModelState.AddModelError("", "Unable to create card.");
             }
