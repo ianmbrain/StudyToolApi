@@ -92,5 +92,41 @@ namespace StudyToolWebApp.Controllers
 
             return Ok(cardsDto);
         }
+
+        [HttpPost]
+        public IActionResult CreateCategory([FromBody] CategoryDto categoryDto)
+        {
+            if(categoryDto == null)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var categoryExists = _categoryRepository.GetCategories()
+                .Where(c => c.Name.Trim().ToLower() == categoryDto.Name.Trim().ToLower())
+                .FirstOrDefault();
+
+            if(categoryExists != null)
+            {
+                ModelState.AddModelError("", "Category already exists.");
+            }
+
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var category = new Category
+            {
+                Name = categoryDto.Name,
+                Color = categoryDto.Color
+            };
+
+            if(!_categoryRepository.CreateCategory(category))
+            {
+                ModelState.AddModelError("", "Unable to create category.");
+            }
+
+            return Ok("Created");
+        }
     }
 }
