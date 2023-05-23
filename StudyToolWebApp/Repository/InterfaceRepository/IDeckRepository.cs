@@ -1,4 +1,5 @@
 ﻿using StudyToolWebApp.Models;
+using System.Diagnostics.Eventing.Reader;
 
 namespace StudyToolWebApp.Repository.InterfaceRepository
 {
@@ -9,5 +10,7 @@ namespace StudyToolWebApp.Repository.InterfaceRepository
         Deck GetDeckByCard(int cardId);
         ICollection<Card> GetCardsByDeck(int deckId);
         bool DecksExists(int id);
+        bool CreateDeck(Deck deck);
+        bool Save();
     }
 }

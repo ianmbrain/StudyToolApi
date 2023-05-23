@@ -13,6 +13,13 @@ namespace StudyToolWebApp.Repository.ClassRepository
             _context = context;
         }
 
+        public bool CreateDeck(Deck deck)
+        {
+            _context.Add(deck);
+
+            return Save();
+        }
+
         public bool DecksExists(int id)
         {
             return _context.Decks.Any(d => d.Id == id);
@@ -36,6 +43,13 @@ namespace StudyToolWebApp.Repository.ClassRepository
         public ICollection<Deck> GetDecks()
         {
             return _context.Decks.OrderBy(d => d.Id).ToList();
+        }
+
+        public bool Save()
+        {
+            var saved = _context.SaveChanges();
+
+            return saved > 0 ? true : false;
         }
     }
 }

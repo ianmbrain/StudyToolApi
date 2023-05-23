@@ -122,5 +122,42 @@ namespace StudyToolWebApp.Controllers
 
             return Ok(cardDtos);
         }
+
+        [HttpPost]
+        public IActionResult CreateDeck([FromBody] DeckDto deckDto)
+        {
+            if (deckDto == null)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var deckExists = _deckRepository.GetDecks()
+                .Where(c => c.Title.Trim().ToLower() == deckDto.Title.Trim().ToLower())
+                .FirstOrDefault();
+
+            if (deckExists != null)
+            {
+                ModelState.AddModelError("", "Deck already exists.");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var deck = new Deck
+            {
+                Title = deckDto.Title,
+                Description = deckDto.Description
+
+            };
+
+            if (!_deckRepository.CreateDeck(deck))
+            {
+                ModelState.AddModelError("", "Unable to create deck.");
+            }
+
+            return Ok("Created");
+        }
     }
 }
