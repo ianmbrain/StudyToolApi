@@ -135,7 +135,7 @@ namespace StudyToolWebApp.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{cardId}")]
+        /*[HttpDelete("{cardId}")]
         public IActionResult DeleteCard(int cardId)
         {
             if(!_cardRepository.CardExists(cardId))
@@ -145,7 +145,7 @@ namespace StudyToolWebApp.Controllers
 
             var card = _cardRepository.GetCard(cardId);
 
-            _cardRepository.DeleteCard(card);
-        }
+            if(_cardRepository.DeleteCard(card))
+        }*/
     } 
 }

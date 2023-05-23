@@ -197,5 +197,38 @@ namespace StudyToolWebApp.Controllers
 
             return NoContent();
         }
+
+        [HttpDelete("{deckId}")]
+        public IActionResult DeleteDeck(int deckId)
+        {
+            if(!_deckRepository.DecksExists(deckId))
+            {
+                return NotFound();
+            }
+
+            var deck = _deckRepository.GetDeck(deckId);
+
+            /*ICollection<Card> cards = _deckRepository.GetCardsByDeck(deckId);
+
+            if (cards != null)
+            {
+                foreach (Card card in cards) 
+                {
+                    
+                }
+            }*/
+
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if(!_deckRepository.DeleteDeck(deck))
+            {
+                ModelState.AddModelError("", "Unable to delete deck");
+            }
+
+            return NoContent();
+        }
     }
 }

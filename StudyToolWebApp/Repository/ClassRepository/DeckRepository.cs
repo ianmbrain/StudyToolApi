@@ -25,6 +25,13 @@ namespace StudyToolWebApp.Repository.ClassRepository
             return _context.Decks.Any(d => d.Id == id);
         }
 
+        public bool DeleteDeck(Deck deck)
+        {
+            _context.Remove(deck);
+
+            return Save();
+        }
+
         public ICollection<Card> GetCardsByDeck(int deckId)
         {
             return _context.cards.Where(c =>  c.Deck.Id == deckId).ToList();

@@ -12,6 +12,7 @@ namespace StudyToolWebApp.Repository.InterfaceRepository
         bool DecksExists(int id);
         bool CreateDeck(Deck deck);
         bool UpdateDeck(Deck deck);
+        bool DeleteDeck(Deck deck);
         bool Save();
     }
 }
