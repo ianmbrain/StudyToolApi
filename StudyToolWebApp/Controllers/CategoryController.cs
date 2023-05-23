@@ -7,6 +7,8 @@ using StudyToolWebApp.Repository.InterfaceRepository;
 
 namespace StudyToolWebApp.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class CategoryController : Controller
     {
         private readonly ICategoryRepository _categoryRepository;
