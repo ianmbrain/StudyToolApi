@@ -7,5 +7,7 @@ namespace StudyToolWebApp.Repository.InterfaceRepository
         ICollection<Card> GetCards();
         Card GetCard(int id);
         bool CardExists(int id);
+        bool CreateCard(Card card);
+        bool Save();
     }
 }

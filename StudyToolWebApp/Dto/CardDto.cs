@@ -6,5 +6,6 @@
         public string Term { get; set; }
         public string Description { get; set; }
         public bool Important { get; set; }
+        public int DeckId { get; set; }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StudyToolWebApp.Dto;
+using StudyToolWebApp.Models;
+using StudyToolWebApp.Repository.ClassRepository;
 using StudyToolWebApp.Repository.InterfaceRepository;
 
 namespace StudyToolWebApp.Controllers
@@ -50,6 +52,44 @@ namespace StudyToolWebApp.Controllers
             }
 
             return Ok(cardDto);
+        }
+
+        [HttpPost]
+        public IActionResult CreateCard([FromBody] CardDto cardDto)
+        {
+            if (cardDto == null)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var cardExists = _cardRepository.GetCards()
+                .Where(c => c.Term.Trim().ToLower() == cardDto.Term.Trim().ToLower())
+                .FirstOrDefault();
+
+            if (cardExists != null)
+            {
+                ModelState.AddModelError("", "Card already exists.");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var card = new Card
+            {
+                Term = cardDto.Term,
+                Description = cardDto.Description,
+                Important = cardDto.Important,
+                Deck = cardDto.DeckId
+            };
+
+            if (!_cardRepository.CreateCard(card))
+            {
+                ModelState.AddModelError("", "Unable to create card.");
+            }
+
+            return Ok("Created");
         }
     } 
 }

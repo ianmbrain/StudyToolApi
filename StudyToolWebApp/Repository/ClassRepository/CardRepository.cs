@@ -18,6 +18,13 @@ namespace StudyToolWebApp.Repository.ClassRepository
             
         }
 
+        public bool CreateCard(Card card)
+        {
+            _context.Add(card);
+
+            return Save();
+        }
+
         public Card GetCard(int id)
         {
             return _context.cards.Where(c => c.Id == id).FirstOrDefault();
@@ -26,6 +33,13 @@ namespace StudyToolWebApp.Repository.ClassRepository
         public ICollection<Card> GetCards()
         {
             return _context.cards.OrderBy(c => c.Id).ToList();
+        }
+
+        public bool Save()
+        {
+            var saved = _context.SaveChanges();
+
+            return saved > 0 ? true : false;
         }
     }
 }
