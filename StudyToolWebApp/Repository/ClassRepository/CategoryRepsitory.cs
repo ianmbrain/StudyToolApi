@@ -44,5 +44,12 @@ namespace StudyToolWebApp.Repository.ClassRepository
 
             return saved > 0 ? true : false;
         }
+
+        public bool UpdateCategory(Category category)
+        {
+            _context.Update(category);
+
+            return Save();
+        }
     }
 }

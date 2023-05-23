@@ -128,5 +128,43 @@ namespace StudyToolWebApp.Controllers
 
             return Ok("Created");
         }
+
+        [HttpPut("{categoryId}")]
+        public IActionResult UpdateCategory(int categoryId, [FromBody] CategoryDto categoryDto)
+        {
+            if (categoryDto == null)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (categoryId != categoryDto.Id)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (!_categoryRepository.CategoryExists(categoryId))
+            {
+                return NotFound();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var category = new Category
+            {
+                Id = categoryDto.Id,
+                Name = categoryDto.Name,
+                Color = categoryDto.Color
+            };
+
+            if (!_categoryRepository.UpdateCategory(category))
+            {
+                ModelState.AddModelError("", "Unable to update category");
+            }
+
+            return NoContent();
+        }
     }
 }

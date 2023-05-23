@@ -9,6 +9,7 @@ namespace StudyToolWebApp.Repository.InterfaceRepository
         ICollection<Card> GetCardsByCategory(int CategoryId);
         bool CategoryExists(int id);
         bool CreateCategory(Category category);
+        bool UpdateCategory(Category category);
         bool Save();
     }
 }

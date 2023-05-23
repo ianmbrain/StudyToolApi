@@ -161,7 +161,7 @@ namespace StudyToolWebApp.Controllers
         }
 
         [HttpPut("{deckId}")]
-        public IActionResult UpdateCategory(int deckId, [FromBody] DeckDto deckDto)
+        public IActionResult UpdateDeck(int deckId, [FromBody] DeckDto deckDto)
         {
             if (deckDto == null)
             {

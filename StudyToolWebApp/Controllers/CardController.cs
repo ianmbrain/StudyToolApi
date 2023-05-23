@@ -94,5 +94,45 @@ namespace StudyToolWebApp.Controllers
 
             return Ok("Created");
         }
+
+        [HttpPut("{cardId}")]
+        public IActionResult UpdateCard(int cardId, [FromQuery] int deckId, [FromBody] CardDto cardDto)
+        {
+            if (cardDto == null)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (cardId != cardDto.Id)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (!_cardRepository.CardExists(cardId))
+            {
+                return NotFound();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var card = new Card
+            {
+                Id = cardDto.Id,
+                Term = cardDto.Term,
+                Description = cardDto.Description,
+                Important = cardDto.Important,
+                Deck = _deckRepository.GetDeck(deckId)
+            };
+
+            if (!_cardRepository.UpdateCard(card))
+            {
+                ModelState.AddModelError("", "Unable to update card");
+            }
+
+            return NoContent();
+        }
     } 
 }
