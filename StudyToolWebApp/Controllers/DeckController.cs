@@ -208,16 +208,6 @@ namespace StudyToolWebApp.Controllers
 
             var deck = _deckRepository.GetDeck(deckId);
 
-            /*ICollection<Card> cards = _deckRepository.GetCardsByDeck(deckId);
-
-            if (cards != null)
-            {
-                foreach (Card card in cards) 
-                {
-                    
-                }
-            }*/
-
             if(!ModelState.IsValid)
             {
                 return BadRequest(ModelState);

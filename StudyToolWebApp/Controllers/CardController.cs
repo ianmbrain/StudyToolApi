@@ -135,17 +135,22 @@ namespace StudyToolWebApp.Controllers
             return NoContent();
         }
 
-        /*[HttpDelete("{cardId}")]
+        [HttpDelete("{cardId}")]
         public IActionResult DeleteCard(int cardId)
         {
-            if(!_cardRepository.CardExists(cardId))
+            if (!_cardRepository.CardExists(cardId))
             {
                 return NotFound();
             }
 
             var card = _cardRepository.GetCard(cardId);
 
-            if(_cardRepository.DeleteCard(card))
-        }*/
+            if (!_cardRepository.DeleteCard(card))
+            {
+                ModelState.AddModelError("", "Unable to delete card");
+            }
+
+            return NoContent();
+        }
     } 
 }
