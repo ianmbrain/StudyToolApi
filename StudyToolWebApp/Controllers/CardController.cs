@@ -156,17 +156,6 @@ namespace StudyToolWebApp.Controllers
             return NoContent();
         }
 
-        /*[HttpPost("/CreateCard")]
-        public IActionResult AddCategory([FromQuery] int cardId, [FromQuery] int categoryId)
-        {
-            if (!_cardRepository.AddCardToCategory(cardId, categoryId))
-            {
-                ModelState.AddModelError("", "Unable to add card to category");
-            }
-
-            return Ok("Added");
-        }*/
-
         [HttpPost("/CreateCard")]
         public IActionResult AddCategory([FromBody] CardCategoryDto cardCategoryDto)
         {
@@ -174,8 +163,6 @@ namespace StudyToolWebApp.Controllers
             {
                 return BadRequest(ModelState);
             }
-            
-            // Need to check if the card exists... this should have an example in some other method
 
             if (!ModelState.IsValid)
             {
