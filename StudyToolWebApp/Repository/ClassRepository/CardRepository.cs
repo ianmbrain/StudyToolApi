@@ -12,16 +12,16 @@ namespace StudyToolWebApp.Repository.ClassRepository
             _context = context;
         }
 
-        public bool AddCardToCategory(int cardId, int categoryId)
+        public bool AddCardToCategory(CardCategory cardCategory)
         {
-            var category = _context.Categories.Where(c => c.Id == categoryId).FirstOrDefault();
+            /*var category = _context.Categories.Where(c => c.Id == categoryId).FirstOrDefault();
             var card = _context.cards.Where(c => c.Id == cardId).FirstOrDefault();
 
             var cardCategory = new CardCategory()
             {
                 Card = card,
                 Category = category
-            };
+            };*/
 
             _context.Add(cardCategory);
 
@@ -32,6 +32,12 @@ namespace StudyToolWebApp.Repository.ClassRepository
         {
             return _context.cards.Any(c => c.Id == id);
             
+        }
+
+        public bool CardCategoryExists(int cardId, int categoryId)
+        {
+            return _context.CardCategories.Any(c => c.CardId == cardId && c.CategoryId == categoryId);
+
         }
 
         public bool CreateCard(int categoryId, Card card)

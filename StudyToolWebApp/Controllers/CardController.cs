@@ -13,11 +13,13 @@ namespace StudyToolWebApp.Controllers
     {
         private readonly ICardRepository _cardRepository;
         private readonly IDeckRepository _deckRepository;
+        private readonly ICategoryRepository _categoryRepository;
 
-        public CardController(ICardRepository cardRepository, IDeckRepository deckRepository)
+        public CardController(ICardRepository cardRepository, IDeckRepository deckRepository, ICategoryRepository categoryRepository)
         {
             _cardRepository = cardRepository;
             _deckRepository = deckRepository;
+            _categoryRepository = categoryRepository;
         }
 
         [HttpGet]
@@ -154,10 +156,39 @@ namespace StudyToolWebApp.Controllers
             return NoContent();
         }
 
-        [HttpPost("/CreateCard")]
+        /*[HttpPost("/CreateCard")]
         public IActionResult AddCategory([FromQuery] int cardId, [FromQuery] int categoryId)
         {
             if (!_cardRepository.AddCardToCategory(cardId, categoryId))
+            {
+                ModelState.AddModelError("", "Unable to add card to category");
+            }
+
+            return Ok("Added");
+        }*/
+
+        [HttpPost("/CreateCard")]
+        public IActionResult AddCategory([FromBody] CardCategoryDto cardCategoryDto)
+        {
+            if (cardCategoryDto == null)
+            {
+                return BadRequest(ModelState);
+            }
+            
+            // Need to check if the card exists... this should have an example in some other method
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var cardCategory = new CardCategory
+            {
+                Card = _cardRepository.GetCard(cardCategoryDto.CardId),
+                Category = _categoryRepository.GetCategory(cardCategoryDto.CategoryId)
+            };
+
+            if (!_cardRepository.AddCardToCategory(cardCategory))
             {
                 ModelState.AddModelError("", "Unable to add card to category");
             }
