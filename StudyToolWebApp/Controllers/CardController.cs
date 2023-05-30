@@ -154,8 +154,8 @@ namespace StudyToolWebApp.Controllers
             return NoContent();
         }
 
-        [HttpPost("CreateCard/{cardId}")]
-        public IActionResult AddCategory(int cardId, [FromQuery] int categoryId)
+        [HttpPost("/CreateCard")]
+        public IActionResult AddCategory([FromQuery] int cardId, [FromQuery] int categoryId)
         {
             if (!_cardRepository.AddCardToCategory(cardId, categoryId))
             {
