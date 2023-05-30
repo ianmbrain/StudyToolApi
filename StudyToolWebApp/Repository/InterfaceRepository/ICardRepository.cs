@@ -11,6 +11,7 @@ namespace StudyToolWebApp.Repository.InterfaceRepository
         bool UpdateCard(Card card);
         bool DeleteCard(Card card);
         bool AddCardToCategory(int cardId, int categoryId);
+        ICollection<Category> GetCategoriesByCard(int cardId);
         bool Save();
     }
 }

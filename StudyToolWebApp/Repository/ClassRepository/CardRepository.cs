@@ -67,6 +67,11 @@ namespace StudyToolWebApp.Repository.ClassRepository
             return _context.cards.OrderBy(c => c.Id).ToList();
         }
 
+        public ICollection<Category> GetCategoriesByCard(int cardId)
+        {
+            return _context.CardCategories.Where(c => c.Card.Id == cardId).Select(x => x.Category ).ToList();
+        }
+
         public bool Save()
         {
             var saved = _context.SaveChanges();

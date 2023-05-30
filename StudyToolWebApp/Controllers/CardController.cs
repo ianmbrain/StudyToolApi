@@ -3,6 +3,7 @@ using StudyToolWebApp.Dto;
 using StudyToolWebApp.Models;
 using StudyToolWebApp.Repository.ClassRepository;
 using StudyToolWebApp.Repository.InterfaceRepository;
+using System.Drawing;
 
 namespace StudyToolWebApp.Controllers
 {
@@ -162,6 +163,36 @@ namespace StudyToolWebApp.Controllers
             }
 
             return Ok("Added");
+        }
+
+        [HttpGet("Categories/{cardId}")]
+        public IActionResult GetCategoriesByCard(int cardId)
+        {
+            if (!_cardRepository.CardExists(cardId))
+            {
+                return NotFound();
+            }
+
+            var categories = _cardRepository.GetCategoriesByCard(cardId);
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            List<CategoryDto> categoryDtos = new List<CategoryDto>();
+
+            foreach (Category c in categories)
+            {
+                categoryDtos.Add(new CategoryDto
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    Color = c.Color
+                });
+            };
+
+            return Ok(categoryDtos);
         }
     }
 }
