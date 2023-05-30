@@ -24,7 +24,7 @@ namespace StudyToolWebApp.Controllers
         {
             var cards = _cardRepository.GetCards();
 
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
@@ -32,10 +32,10 @@ namespace StudyToolWebApp.Controllers
             return Ok(cards);
         }
 
-        [HttpGet("{id}")] 
-        public IActionResult GetCard(int id) 
+        [HttpGet("{id}")]
+        public IActionResult GetCard(int id)
         {
-            if(!_cardRepository.CardExists(id))
+            if (!_cardRepository.CardExists(id))
             {
                 return NotFound();
             }
@@ -49,7 +49,7 @@ namespace StudyToolWebApp.Controllers
                 Important = card.Important
             };
 
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
@@ -152,5 +152,16 @@ namespace StudyToolWebApp.Controllers
 
             return NoContent();
         }
-    } 
+
+        [HttpPost("CreateCard/{cardId}")]
+        public IActionResult AddCategory(int cardId, [FromQuery] int categoryId)
+        {
+            if (!_cardRepository.AddCardToCategory(cardId, categoryId))
+            {
+                ModelState.AddModelError("", "Unable to add card to category");
+            }
+
+            return Ok("Added");
+        }
+    }
 }
