@@ -13,13 +13,11 @@ namespace StudyToolWebApp.Controllers
     {
         private readonly ICardRepository _cardRepository;
         private readonly IDeckRepository _deckRepository;
-        private readonly ICategoryRepository _categoryRepository;
 
-        public CardController(ICardRepository cardRepository, IDeckRepository deckRepository, ICategoryRepository categoryRepository)
+        public CardController(ICardRepository cardRepository, IDeckRepository deckRepository)
         {
             _cardRepository = cardRepository;
             _deckRepository = deckRepository;
-            _categoryRepository = categoryRepository;
         }
 
         [HttpGet]
@@ -157,9 +155,9 @@ namespace StudyToolWebApp.Controllers
         }
 
         [HttpPost("/CreateCard")]
-        public IActionResult AddCategory([FromBody] CardCategoryDto cardCategoryDto)
+        public IActionResult AddCategory([FromQuery] int cardId, [FromQuery] int categoryId)
         {
-            if (cardCategoryDto == null)
+            /*if (cardCategoryDto == null)
             {
                 return BadRequest(ModelState);
             }
@@ -178,6 +176,16 @@ namespace StudyToolWebApp.Controllers
             if (!_cardRepository.AddCardToCategory(cardCategory))
             {
                 ModelState.AddModelError("", "Unable to add card to category");
+            }*/
+
+            if (_cardRepository.CardCategoryExists(cardId, categoryId))
+            {
+                ModelState.AddModelError("", "Card category already exists.");
+            }
+
+            if(!_cardRepository.AddCardToCategory(cardId, categoryId))
+            {
+                ModelState.AddModelError("", "Unable to add card category");
             }
 
             return Ok("Added");

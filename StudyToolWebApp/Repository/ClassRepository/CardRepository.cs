@@ -12,16 +12,16 @@ namespace StudyToolWebApp.Repository.ClassRepository
             _context = context;
         }
 
-        public bool AddCardToCategory(CardCategory cardCategory)
+        public bool AddCardToCategory(int cardId, int categoryId)
         {
-            /*var category = _context.Categories.Where(c => c.Id == categoryId).FirstOrDefault();
+            var category = _context.Categories.Where(c => c.Id == categoryId).FirstOrDefault();
             var card = _context.cards.Where(c => c.Id == cardId).FirstOrDefault();
 
             var cardCategory = new CardCategory()
             {
                 Card = card,
                 Category = category
-            };*/
+            };
 
             _context.Add(cardCategory);
 
