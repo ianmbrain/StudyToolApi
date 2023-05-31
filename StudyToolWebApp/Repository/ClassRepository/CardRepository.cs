@@ -28,6 +28,18 @@ namespace StudyToolWebApp.Repository.ClassRepository
             return Save();
         }
 
+        public bool DeleteCardCategory(CardCategory cardCategory)
+        {
+            _context.Remove(cardCategory);
+
+            return Save();
+        }
+
+        public CardCategory GetCardCategory(int cardId, int categoryId) 
+        {
+            return _context.CardCategories.Where(c => c.CardId == cardId && c.CategoryId == categoryId).FirstOrDefault();
+        }
+
         public bool CardExists(int id)
         {
             return _context.cards.Any(c => c.Id == id);

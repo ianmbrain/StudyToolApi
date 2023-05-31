@@ -183,13 +183,32 @@ namespace StudyToolWebApp.Controllers
                 ModelState.AddModelError("", "Card category already exists.");
             }
 
-            if(!_cardRepository.AddCardToCategory(cardId, categoryId))
+            if (!_cardRepository.AddCardToCategory(cardId, categoryId))
             {
                 ModelState.AddModelError("", "Unable to add card category");
             }
 
             return Ok("Added");
         }
+
+        [HttpDelete("DeleteCardCategory")]
+        public IActionResult DeleteCardCategory([FromQuery] int cardId, [FromQuery] int categoryId)
+        {
+            if (!_cardRepository.CardCategoryExists(cardId, categoryId))
+            {
+                return NotFound();
+            }
+
+            var cardCategory = _cardRepository.GetCardCategory(cardId, categoryId);
+
+            if (!_cardRepository.DeleteCardCategory(cardCategory))
+            {
+                ModelState.AddModelError("", "Unable to delete card category");
+            }
+
+            return NoContent();
+        }
+
 
         [HttpGet("Categories/{cardId}")]
         public IActionResult GetCategoriesByCard(int cardId)
