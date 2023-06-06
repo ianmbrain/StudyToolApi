@@ -55,7 +55,7 @@ namespace StudyToolWebApp.Repository.ClassRepository
 
         public ICollection<Deck> GetDecks()
         {
-            return _context.Decks.OrderBy(d => d.Id).ToList();
+            return _context.Decks.OrderBy(d => d.Id).OrderByDescending(d => d.LastUpdatedAt).ToList();
         }
 
         public bool Save()
