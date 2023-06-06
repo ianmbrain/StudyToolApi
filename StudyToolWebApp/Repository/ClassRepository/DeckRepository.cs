@@ -1,4 +1,5 @@
-﻿using StudyToolWebApp.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using StudyToolWebApp.Data;
 using StudyToolWebApp.Models;
 using StudyToolWebApp.Repository.InterfaceRepository;
 
@@ -40,6 +41,11 @@ namespace StudyToolWebApp.Repository.ClassRepository
         public Deck GetDeck(int id)
         {
             return _context.Decks.Where(c => c.Id == id).FirstOrDefault();
+        }
+
+        public Deck GetDeckNoTracking(int id)
+        {
+            return _context.Decks.Where(c => c.Id == id).AsNoTracking().FirstOrDefault();
         }
 
         public Deck GetDeckByCard(int cardId)

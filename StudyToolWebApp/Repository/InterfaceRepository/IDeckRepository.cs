@@ -7,6 +7,7 @@ namespace StudyToolWebApp.Repository.InterfaceRepository
     {
         ICollection<Deck> GetDecks();
         Deck GetDeck(int id);
+        Deck GetDeckNoTracking(int id);
         Deck GetDeckByCard(int cardId);
         ICollection<Card> GetCardsByDeck(int deckId);
         bool DecksExists(int id);

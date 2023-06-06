@@ -168,7 +168,11 @@ namespace StudyToolWebApp.Controllers
                 return BadRequest(ModelState);
             }
 
-            if(deckId != deckDto.Id)
+            // Ensures that only the updated date field is updated, not the created date
+            // No tracking is required as entity framework can't track two cards at once
+            DateTime createdDate = _deckRepository.GetDeckNoTracking(deckId).CreatedAt;
+
+            if (deckId != deckDto.Id)
             {
                 return BadRequest(ModelState);
             }
@@ -187,7 +191,8 @@ namespace StudyToolWebApp.Controllers
             {
                 Id = deckDto.Id,
                 Title = deckDto.Title,
-                Description = deckDto.Description
+                Description = deckDto.Description,
+                CreatedAt = createdDate
             };
 
             if(!_deckRepository.UpdateDeck(deck))
