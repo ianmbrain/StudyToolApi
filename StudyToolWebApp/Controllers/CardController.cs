@@ -13,11 +13,13 @@ namespace StudyToolWebApp.Controllers
     {
         private readonly ICardRepository _cardRepository;
         private readonly IDeckRepository _deckRepository;
+        private readonly ICategoryRepository _categoryRepository;
 
-        public CardController(ICardRepository cardRepository, IDeckRepository deckRepository)
+        public CardController(ICardRepository cardRepository, IDeckRepository deckRepository, ICategoryRepository categoryRepository)
         {
             _cardRepository = cardRepository;
             _deckRepository = deckRepository;
+            _categoryRepository = categoryRepository;
         }
 
         [HttpGet]
