@@ -1,4 +1,5 @@
-﻿using StudyToolWebApp.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using StudyToolWebApp.Data;
 using StudyToolWebApp.Models;
 using StudyToolWebApp.Repository.InterfaceRepository;
 
@@ -80,9 +81,14 @@ namespace StudyToolWebApp.Repository.ClassRepository
             return _context.cards.Where(c => c.Id == id).FirstOrDefault();
         }
 
+        public Card GetCardNoTracking(int id)
+        {
+            return _context.cards.Where(c => c.Id == id).AsNoTracking().FirstOrDefault();
+        }
+
         public ICollection<Card> GetCards()
         {
-            return _context.cards.OrderBy(c => c.Id).ToList();
+            return _context.cards.OrderByDescending(c => c.LastUpdatedAt).ToList();
         }
 
         public ICollection<Category> GetCategoriesByCard(int cardId)

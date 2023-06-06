@@ -6,6 +6,8 @@ namespace StudyToolWebApp.Repository.InterfaceRepository
     {
         ICollection<Card> GetCards();
         Card GetCard(int id);
+
+        Card GetCardNoTracking(int id);
         bool CardExists(int id);
         bool CardCategoryExists(int cardId, int categoryId);
         CardCategory GetCardCategory(int cardId, int categoryId);
