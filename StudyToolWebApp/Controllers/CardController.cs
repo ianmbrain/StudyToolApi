@@ -67,7 +67,7 @@ namespace StudyToolWebApp.Controllers
             }
 
             var cardExists = _cardRepository.GetCards()
-                .Where(c => c.Term.Trim().ToLower() == cardDto.Term.Trim().ToLower())
+                .Where(c => c.Term.ToLower() == cardDto.Term.ToLower())
                 .FirstOrDefault();
 
             if (cardExists != null)
@@ -162,27 +162,6 @@ namespace StudyToolWebApp.Controllers
         [HttpPost("/CreateCard")]
         public IActionResult AddCategory([FromQuery] int cardId, [FromQuery] int categoryId)
         {
-            /*if (cardCategoryDto == null)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var cardCategory = new CardCategory
-            {
-                Card = _cardRepository.GetCard(cardCategoryDto.CardId),
-                Category = _categoryRepository.GetCategory(cardCategoryDto.CategoryId)
-            };
-
-            if (!_cardRepository.AddCardToCategory(cardCategory))
-            {
-                ModelState.AddModelError("", "Unable to add card to category");
-            }*/
-
             if (_cardRepository.CardCategoryExists(cardId, categoryId))
             {
                 ModelState.AddModelError("", "Card category already exists.");

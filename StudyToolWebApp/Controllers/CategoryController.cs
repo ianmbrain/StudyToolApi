@@ -102,7 +102,7 @@ namespace StudyToolWebApp.Controllers
             }
 
             var categoryExists = _categoryRepository.GetCategories()
-                .Where(c => c.Name.Trim().ToLower() == categoryDto.Name.Trim().ToLower())
+                .Where(c => c.Name.ToLower() == categoryDto.Name.ToLower())
                 .FirstOrDefault();
 
             if(categoryExists != null)

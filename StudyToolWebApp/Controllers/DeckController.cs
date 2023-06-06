@@ -132,7 +132,7 @@ namespace StudyToolWebApp.Controllers
             }
 
             var deckExists = _deckRepository.GetDecks()
-                .Where(c => c.Title.Trim().ToLower() == deckDto.Title.Trim().ToLower())
+                .Where(c => c.Title.ToLower() == deckDto.Title.ToLower())
                 .FirstOrDefault();
 
             if (deckExists != null)
